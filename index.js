@@ -1,8 +1,22 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var filestring = require('fs');
 var html = require('html');
-var fs = require('fs');
 var app = express();
+
+
+// using webpack-dev-server and middleware in development environment
+if(process.env.NODE_ENV !== 'production') {
+  var webpackDevMiddleware = require('webpack-dev-middleware');
+  var webpackHotMiddleware = require('webpack-hot-middleware');
+  var webpack = require('webpack');
+  var config = require('./webpack.config');
+  var compiler = webpack(config);
+  
+  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackHotMiddleware(compiler));
+}
+
 
 var db = mongoose.connection;
 db.on('error', console.error);
@@ -23,7 +37,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/km', function(request, response, next) {
-  fs.readFile('./views/km.html', function (error, data) {
+  filestring.readFile('./views/km.html', function (error, data) {
   	response.send(data.toString());
   });
 });
