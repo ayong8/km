@@ -1,6 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var filestring = require('fs');
+//var filestring = require('fs');
 var html = require('html');
 var app = express();
 
@@ -36,11 +36,13 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+/*
 app.get('/km', function(request, response, next) {
   filestring.readFile('./views/km.html', function (error, data) {
   	response.send(data.toString());
   });
 });
+*/
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
