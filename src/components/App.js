@@ -1,12 +1,10 @@
-import React from 'react';
-import Contact from './Contact';
+import React, { Component, PropTypes } from 'react';
+import Score from './Score';
 
-class App extends React.component{
+export default class App extends Component{
 	render(){
 		return(
-			<Contact/>
+			<Score/>
 		);
 	}
 }
-
-export default App;

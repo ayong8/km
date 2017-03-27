@@ -1,11 +1,8 @@
-var path = require('path');
 var webpack = require('webpack');
 
 
 module.exports = {
-    //devtool: 'source-map',
-
-    entry: './index.js',
+    entry: './src/index.js',
 
     devServer: {
         contentBase: __dirname + '/public/',
@@ -19,16 +16,8 @@ module.exports = {
                 exclude: /node_modules/,
                 loaders: ['react-hot-loader', 'babel-loader?' + JSON.stringify({
                     cacheDirectory: true
-                })],
+                })]
                 
-            },
-            {
-                test: /\.css$/,
-                loaders: ['style-loader']
-            },
-            {
-                test: /\.html$/,
-                loader: "file?name=[name].[ext]"
             }
         ]
     },
@@ -40,18 +29,18 @@ module.exports = {
 
     output: {
         path: __dirname + '/public/',
-        publicPath: '/',
         filename: 'bundle.js'
     },
-
+    /*
+    // due to this fuck shitttttttttt
     // to solve the error of refusing to read 'fs' module
     target: 'node',
-
+    
     node: {
         fs: "empty",
         fsevents: "empty",
         "node-pre-gyp": "empty"
-    },
+    },*/
 
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
@@ -60,5 +49,4 @@ module.exports = {
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ContextReplacementPlugin(/selector/, "./folder", true, /filter/)
     ]
-
 }
